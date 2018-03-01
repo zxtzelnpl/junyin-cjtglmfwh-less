@@ -14,13 +14,16 @@
     <div class="container userCenter">
         <div class="userCard">
             <div class="userInfo">
-                <img src="/mobile/img/userCenter/icon_tx_woman.png" />
-                <!--如果用户性别是男性，则图片为男性图片-->
-                <!--<img src="/mobile/img/userCenter/icon_tx_man.png" />-->
-                <div class="info">
-                    <p>田雨橙</p>
-                    <p>150215359360</p>
+                <div class="wrapLeft">
+                    <img src="/mobile/img/userCenter/icon_tx_woman.png" />
+                    <!--如果用户性别是男性，则图片为男性图片-->
+                    <!--<img src="/mobile/img/userCenter/icon_tx_man.png" />-->
+                    <div class="info">
+                        <p>田雨橙</p>
+                        <p>150215359360</p>
+                    </div>
                 </div>
+                <span id="sign" class="sign">签到</span>
             </div>
             <div class="productInfo">
                 <a class="points" href="user_center_points.html">
@@ -92,9 +95,86 @@
                 <p>个人中心</p>
             </a>
         </footer>
+
+        <div class="pop" id="pop">
+            <div class="signResult">
+                <img class="top" src="/mobile/img/userCenter/icon_qd.png" alt="">
+                <p class="sign_success">签到成功</p>
+                <p class="get_points_is">获得<span id="get_points_is"></span>积分</p>
+                <span id="pop_i_know">我知道了</span>
+                <img class="bottom" src="/mobile/img/userCenter/icon_btn_off.png" id="pop_close">
+            </div>
+        </div>
     </div>
 </form>
 </body>
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script>
+    /**自定义的提示框**/
+    function toast (message) {
+        $.toast({
+            text: message,
+            allowToastClose: false,
+            showHideTransition: 'slide',
+            position: 'bottom-center',
+            hideAfter: 1500,
+            stack: false,
+            textAlign: 'center',
+            loader: false
+        })
+    }
+    $(function(){
+        var $sign = $('#sign')
+            ,$pop = $('#pop')
+            ,$get_points_is = $('#get_points_is')
+            ,$pop_close = $('#pop_close')
+            ,$pop_i_know = $('#pop_i_know')
+            ,signControl = true
+            ,HAS_SIGN = '已签到'
+        ;
+
+
+        $sign.click(function(){
+            if($.trim($sign.html())===HAS_SIGN){
+                return toast('您今天已经完成签到了');
+            }
+            else if(signControl === false){
+                return toast('正在连接服务器，请稍等');
+            }
+            else{
+                signControl = false;
+                $.ajax({
+                    url:'',
+                    // dataType:'json',
+                    success:function(data){
+                        console.log('success loaded');
+                        $get_points_is.html(5);//获得积分
+                        $sign.html(HAS_SIGN);
+                        $pop.css({
+                            display:'flex'
+                        });
+                        signControl = true;
+                    },
+                    fail:function(){
+                        signControl = true;
+                        return toast('服务器连接错误，请稍后再次尝试');
+                    }
+                })
+            }
+        });
+
+        $pop_close.click(function(){
+            $pop.css({
+                display:'none'
+            })
+        });
+        $pop_i_know.click(function(){
+            $pop.css({
+                display:'none'
+            })
+        });
+
+    })
+</script>
 </html>

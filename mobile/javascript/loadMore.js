@@ -36,7 +36,7 @@
                     var bottom = loadMoreElement.getBoundingClientRect().bottom;
                     var height = window.innerHeight;
                     var hasMore = this.loadMoreElement.data('hasmore');//是否有更多数据
-                    console.table({bottom,height,hasMore});
+                    // console.table({bottom,height,hasMore});
                     if(bottom<=height+30&&hasMore==1){
                         this.loadControl = false;
                         this.loadFunction(this.loadEnd.bind(this));

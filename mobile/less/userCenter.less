@@ -12,7 +12,7 @@ ul{
 
 html, body, form {
   height: 100%;
-  background: #f4f3f3;
+  background: #f2f2f2;
 }
 .container{
   min-height:100%;
@@ -25,9 +25,21 @@ html, body, form {
 
 /*用户中心-主页面*/
 .userCenter{
-  background:url(/mobile/img/userCenter/icon_me_bg.png) center top no-repeat;
+  background:#f5f5f5 url(/mobile/img/userCenter/icon_me_bg.png) center top no-repeat;
   background-size:contain;
   overflow: hidden;
+  .pop{
+    display:none;
+    align-items: center;
+    justify-content: center;
+
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(11,11,11,.4);
+  }
 }
 .userCard{
   display:flex;
@@ -48,8 +60,13 @@ html, body, form {
   /*用户信息*/
   .userInfo{
     display:flex;
-    justify-content: flex-start;
-    align-items: stretch;
+    align-items: center;
+    justify-content: space-between;
+    .wrapLeft{
+      display:flex;
+      justify-content: flex-start;
+      align-items: stretch;
+    }
     img{
       width:120*@one;
       height:120*@one;
@@ -68,6 +85,13 @@ html, body, form {
         &:nth-child(2){
         }
       }
+    }
+    .sign{
+      padding:4px 8px;
+      .fontSmall;
+      color:@darkRed;
+      border:1px solid @darkRed;
+      border-radius:5px;
     }
   }
   /*产品信息*/
@@ -100,6 +124,7 @@ html, body, form {
         &:nth-child(1){
           font-weight:bold;
           color:@darkRed;
+          font-size:18px;
         }
         &:nth-child(2){
           color:@fontGray;
@@ -161,6 +186,54 @@ footer{
     &.choice{
       color:@darkRed;
     }
+  }
+}
+.signResult{
+  position:relative;
+  width:480*@one;
+  height:480*@one;
+  border-radius:10px;
+  background:#fb6263;
+  .top{
+    position:absolute;
+    top:-100 *@one;
+    left:140*@one;
+    width:200*@one;
+    height:200*@one;
+  }
+  .bottom{
+    position:absolute;
+    bottom:-160 *@one;
+    left:200*@one;
+    width:80*@one;
+    height:80*@one;
+  }
+  >p{
+    color:#fff;
+    text-align: center;
+    &.sign_success{
+      padding-top:140*@one;
+      font-weight:bold;
+      font-size:24px;
+    }
+    &.get_points_is{
+      padding-top:40*@one;
+      font-size:15px;
+      >span{
+        margin:0 1em;
+      }
+    }
+  }
+  >span{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin:90*@one auto 0;
+    color:#c51d1e;
+    width:360*@one;
+    height:72*@one;
+    border-radius:5px;
+    background:#fed718;
   }
 }
 
