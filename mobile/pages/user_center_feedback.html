@@ -18,7 +18,7 @@
         </div>
         <div class="contents">
             <div class="content on">
-                <div class="myFeedbackRecord">
+                <div class="myFeedbackRecord" id="myFeedbackRecord" data-hasmore="1"><!--hasMore表示有更多的数据可以加载-->
                     <div class="record">
                         <div class="question">
                             <img src="/mobile/img/userCenter/icon_myfeedback_q.png" alt="">
@@ -88,6 +88,7 @@
 </body>
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script src="/mobile/javascript/loadMore.js"></script>
 <script>
     $(function () {
         /**
@@ -111,7 +112,21 @@
             if(text==='请输入内容...'){
                 $this.html('').removeClass('placeholder');
             }
-        })
+        });
+
+        /**
+         * 上拉加载更多
+         */
+        $('#myFeedbackRecord').loadMore({
+            loadFunction:function(loadEnd){
+                setTimeout(function(){
+                    console.log('我去加载数据');
+                    /**这边进行ajax**/
+                    loadEnd();
+                    /***无论ajax成功或者失败，都需要执行一次loadEnd,否则不会进行第二次ajax的加载*/
+                },1000)
+            }
+        });
     })
 </script>
 </html>

@@ -275,7 +275,51 @@ footer{
 
 /*用户中心-积分记录*/
 .userCenterPointsRecord{
+  box-sizing: border-box;
+  padding-top:110*@one;
+  .tabs{
+    position:fixed;
+    top:0;
+    width:100%;
 
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+
+    height:90 * @one;
+
+    .fontSmall;
+
+    background:#fff;
+
+    .tab{
+
+      box-sizing: border-box;
+
+      width:140 * @one;
+      min-width:60px;
+      height:90 * @one;
+
+      line-height:86 * @one;
+      text-align: center;
+      &.on:after{
+        content:'';
+        display:block;
+        width:140 * @one;
+        height:4 * @one;
+        background:@darkRed;
+        box-shadow: 0 1px 4px 0 @darkRed;
+      }
+    }
+  }
+  .contents{
+    .content{
+      display:none;
+      &.on{
+        display:block;
+      }
+    }
+  }
 }
 .pointsOneLine{
   height:120*@one;
@@ -331,6 +375,13 @@ footer{
   }
   span.darkRed{
     color:@darkRed;
+  }
+}
+.pointsRegulation{
+  padding:30*@one 25*@one;
+  background:#fff;
+  p{
+    line-height:2;
   }
 }
 

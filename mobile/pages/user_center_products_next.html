@@ -12,7 +12,7 @@
 <body>
 <form>
     <div class="container userCenterProductsNext">
-        <ul class="productListNext" id="productListNext">
+        <ul class="productListNext" id="productListNext" data-hasmore="1">
             <li>
                 <a>
                     <div class="product">
@@ -148,10 +148,26 @@
                     <img src="/mobile/img/userCenter/icon_into.png" />
                 </a>
             </li>
-        </ul>
+        </ul><!--hasMore表示有更多的数据可以加载-->
     </div>
 </form>
 </body>
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script src="/mobile/javascript/loadMore.js"></script>
+<script>
+    /**
+     * 上拉加载更多
+     */
+    $('#productListNext').loadMore({
+        loadFunction:function(loadEnd){
+            setTimeout(function(){
+                console.log('我去加载数据');
+                /**这边进行ajax**/
+                loadEnd();
+                /***无论ajax成功或者失败，都需要执行一次loadEnd,否则不会进行第二次ajax的加载*/
+            },1000)
+        }
+    })
+</script>
 </html>

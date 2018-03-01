@@ -12,7 +12,7 @@
 <body>
 <form>
     <div class="container userCenterMyExchange">
-        <ul class="exchangeRecord" id="exchangeRecord">
+        <ul class="exchangeRecord" id="exchangeRecord" data-hasmore="1"><!--hasMore表示有更多的数据可以加载-->
             <li>
                 <div>
                     <p>
@@ -136,4 +136,20 @@
 </body>
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script src="/mobile/javascript/loadMore.js"></script>
+<script>
+    /**
+     * 上拉加载更多
+     */
+    $('#exchangeRecord').loadMore({
+        loadFunction:function(loadEnd){
+            setTimeout(function(){
+                console.log('我去加载数据');
+                /**这边进行ajax**/
+                loadEnd();
+                /***无论ajax成功或者失败，都需要执行一次loadEnd,否则不会进行第二次ajax的加载*/
+            },1000)
+        }
+    })
+</script>
 </html>
