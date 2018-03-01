@@ -208,12 +208,23 @@
      */
     $('#productList').loadMore({
         loadFunction:function(loadEnd){
-            setTimeout(function(){
+            /**这边进行ajax**/
+            // $.ajax({
+            //     url:'',
+            //     dataType:'json',
+            //     success:function(data){
+            /***无论ajax成功或者失败，都需要执行一次loadEnd,否则不会进行第二次ajax的加载*/
+            //         loadEnd()
+            //     },
+            //     fail:function(err){
+            /***无论ajax成功或者失败，都需要执行一次loadEnd,否则不会进行第二次ajax的加载*/
+            //         loadEnd()
+            //     }
+            // })
+            /*setTimeout(function(){
                 console.log('我去加载数据');
-                /**这边进行ajax**/
                 loadEnd();
-                /***无论ajax成功或者失败，都需要执行一次loadEnd,否则不会进行第二次ajax的加载*/
-            },1000)
+            },1000)*/
         }
     })
 </script>
