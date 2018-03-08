@@ -94,6 +94,34 @@
       height: 72px + 4px + 2px;
       line-height: 24px;
     }
+    .importantStar{
+      position:absolute;
+      top:1px;
+      right:1px;
+
+      height:24px;
+      width:24px;
+      z-index: 1;
+      span{
+        display:block;
+        margin-left:14px;
+        margin-top:2px;
+        color:@red;
+        font-size:15px;
+      }
+      &:after{
+        position: absolute;
+        content: "";
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        z-index:-1;
+        border: 12px solid transparent;
+        border-top-color:@lineGray;
+        border-right-color:@lineGray;
+      }
+    }
   }
 }
 

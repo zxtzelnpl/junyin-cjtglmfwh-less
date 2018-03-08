@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="blank-h-30"></div>
-        <div class="btn">
+        <div class="btn" id="button">
             下一步
         </div>
         <div class="blank-h-40"></div>
@@ -60,11 +60,16 @@
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
 <script>
+    /**按钮底色变成红色**/
+    function buttonChangeToRed(){
+      $('#button').addClass('active')
+    }
+
   $(function () {
     wx.config({
       debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
       appId: '', // 必填，企业号的唯一标识，此处填写企业号corpid
-      timestamp:'', // 必填，生成签名的时间戳
+      timestamp: '', // 必填，生成签名的时间戳
       nonceStr: '', // 必填，生成签名的随机串
       signature: '',// 必填，签名，见附录1
       jsApiList: [
@@ -79,7 +84,7 @@
       /**关闭右上角分享菜单**/
       wx.hideOptionMenu()
 
-      function OpenWeiXinImageUpload(imageId){
+      function OpenWeiXinImageUpload(imageId) {
         /**微信：拍照或从手机相册中选图接口**/
         wx.chooseImage({
           count: 1, // 默认9
@@ -98,7 +103,7 @@
                  * do something
                  * **/
               },
-              fail:function(res){
+              fail: function (res) {
                 alert("图片大小不能超过1M")
               }
             })
@@ -106,12 +111,12 @@
         });
       }
 
-      $('#front').click(function(e){
+      $('#front').click(function (e) {
         var id = e.target.id
         OpenWeiXinImageUpload(id)
       })
 
-      $('#back').click(function(e){
+      $('#back').click(function (e) {
         var id = e.target.id
         OpenWeiXinImageUpload(id)
       })
@@ -119,13 +124,11 @@
     });
 
     wx.error(function (res) {
-        console.log(res)
+      console.log(res)
     });
 
 
   })
-
-
 
 
   /**上传图片-微信接口**/

@@ -22,6 +22,9 @@
                     身份证：
                 </label>
                 <input class="ipt" id="certificate" type="text" placeholder="请填写"/>
+                <div class="importantStar">
+                    <span>*</span>
+                </div>
             </div>
             <div class="blank-h-10"></div>
             <div class="box">
@@ -29,6 +32,9 @@
                     姓名：
                 </label>
                 <input class="ipt" id="name" type="text" placeholder="请填写"/>
+                <div class="importantStar">
+                    <span>*</span>
+                </div>
             </div>
             <div class="blank-h-10"></div>
             <div class="box">
@@ -36,6 +42,9 @@
                     手机号：
                 </label>
                 <input class="ipt" id="phone" type="number" placeholder="请填写"/>
+                <div class="importantStar">
+                    <span>*</span>
+                </div>
             </div>
             <div class="blank-h-10"></div>
             <div class="box">
@@ -46,6 +55,9 @@
                     <option value="男">男</option>
                     <option value="女">女</option>
                 </select>
+                <div class="importantStar">
+                    <span>*</span>
+                </div>
             </div>
             <div class="blank-h-10"></div>
             <!--<label class="box">
@@ -55,13 +67,16 @@
                 <input class="ipt" name="validDate" id="validDate" type="date"/>
                 <span class="cover">请填写</span>
             </label>-->
-            <div class="blank-h-10"></div>
+            <!--<div class="blank-h-10"></div>-->
             <div class="box">
                 <label for="naturePerson" class="label">
                     <p>实际控制投资</p>
                     <p>者的自然人：</p>
                 </label>
                 <input class="ipt" id="naturePerson" type="text" placeholder="请填写"/>
+                <div class="importantStar">
+                    <span>*</span>
+                </div>
             </div>
             <div class="blank-h-10"></div>
             <div class="box">
@@ -69,6 +84,9 @@
                     交易受益人：
                 </label>
                 <input class="ipt" id="benifitPerson" type="text" placeholder="请填写"/>
+                <div class="importantStar">
+                    <span>*</span>
+                </div>
             </div>
             <div class="blank-h-10"></div>
             <div class="box">
@@ -76,6 +94,9 @@
                     职业：
                 </label>
                 <input class="ipt" id="job" type="text" placeholder="请填写"/>
+                <div class="importantStar">
+                    <span>*</span>
+                </div>
                 <!--<select class="ipt placeholder" name="job" id="job">
                     <option value="" selected>请选择</option>
                     <option value="职员">职员</option>
@@ -98,6 +119,9 @@
                     收入区间：
                 </label>
                 <input class="ipt" id="salary" type="text" placeholder="请填写"/>
+                <div class="importantStar">
+                    <span>*</span>
+                </div>
                 <!--<select class="ipt placeholder" name="salary" id="salary">
                     <option value="" selected>请选择</option>
                     <option Value="4000以下">4000以下</option>
@@ -115,6 +139,9 @@
                     联系地址：
                 </label>
                 <textarea class="ipt" id="address" type="text" placeholder="请填写"></textarea>
+                <div class="importantStar">
+                    <span>*</span>
+                </div>
             </div>
         </div>
 
@@ -285,7 +312,6 @@
                 sub.removeClass('active')
             }
         }
-
         activeCheck()
 
         /**select值改变的时候改变颜色**/
@@ -366,6 +392,10 @@
             /**do something**/
 
         });
+
+
+
+
     })
 
 </script>
