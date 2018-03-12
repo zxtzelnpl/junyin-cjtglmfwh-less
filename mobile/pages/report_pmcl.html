@@ -40,7 +40,24 @@
 
         <div class="lineTwo"></div>
 
-        <div class="blank-h-40"></div>
+        <!--音屏-->
+        <!--data-audiosrc为音频地址信息-->
+        <div class="audioWrap"
+             id="audioContent"
+             data-audiosrc="http://new.cjtglm.com/card/mp3/gotime.mp3"
+        >
+            <span class="btn"></span>
+            <span class="text">这里是播放内容的标题这里是播放内容的标题这里是播放内容的标题这里是播放内容的标题这里是播放内容的标题</span>
+        </div>
+
+        <!--视频-->
+        <!--data-videosrc为视频地址信息-->
+        <div class="videoWrap"
+             id="videoContent"
+             data-videosrc="http://aliyunvideo.zgjy518.com/e39de9f378314eca9f02c05474d6d7d6/73deafe3ea2c4f478c92cad2e3c917ce-5287d2089db37e62345123a1be272f8b.mp4">
+        </div>
+
+        <!--<div class="blank-h-40"></div>-->
 
         <!--盘面策略-->
         <div class="article">
@@ -85,4 +102,35 @@
 </body>
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script src="/mobile/javascript/reportPlugins.js"></script>
+<script>
+    $(function(){
+
+      /**
+       * Object{
+       *    activeClass 如果有资源则显示，如果没有资源则隐藏
+       *    dataSrc 绑定的资源的data的标签，全小写
+       *    playClass 播放的样式
+       *    btn 按钮的selector,用于样式改变
+       * }
+       */
+      $("#audioContent").ZxtAudio({
+        activeClass:'on',
+        dataSrc:'audiosrc',
+        playClass:'play',
+        btn:'.btn'
+      })
+
+      /**
+       * Object{
+       *    activeClass 如果有资源则显示，如果没有资源则隐藏
+       *    dataSrc 绑定的资源的data的标签，全小写
+       * }
+       */
+      $("#videoContent").ZxtVideo({
+        activeClass:'on',
+        dataSrc:'videosrc'
+      })
+    })
+</script>
 </html>

@@ -311,6 +311,71 @@ html, body, form, .container {
   font-weight: bold;
 }
 
+
+/*视频播放*/
+.videoWrap{
+  display:none;
+  &.on{
+    display:flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  width: 690*@one;
+  height:450*@one;
+
+  video{
+    width:100%;
+    height:auto;
+  }
+}
+
+
+@keyframes playAudio {
+  0%{
+    background:url(/mobile/img/report/audio3.png) no-repeat;
+    background-size:cover;
+  }
+  50%{
+    background:url(/mobile/img/report/audio2.png) no-repeat;
+    background-size:cover;
+  }
+  75%{
+    background:url(/mobile/img/report/audio1.png) no-repeat;
+    background-size:cover;
+  }
+}
+/*音频播放*/
+.audioWrap{
+  display:none;
+  padding:1em 0;
+  min-height:100*@one;
+
+  .btn{
+    flex-shrink: 0;
+    width:64*@one;
+    height:64*@one;
+    background:url(/mobile/img/report/play.png) no-repeat;
+    background-size:cover;
+    &.play{
+      background:url(/mobile/img/report/audio3.png) no-repeat;
+      background-size:cover;
+      animation: playAudio 2s infinite linear;
+    }
+  }
+  .text{
+    padding-left:.5em;
+  }
+  &.on{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+}
+
+
+
 /*强势操盘*/
 .qscp-jycp {
 
@@ -508,3 +573,5 @@ html, body, form, .container {
 .zsts{
 
 }
+
+
