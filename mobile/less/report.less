@@ -134,8 +134,12 @@ html, body, form, .container {
   }
   .contentStockAll {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    .stockBox:nth-child(2n+3){
+      margin-top: 10px;
+    }
   }
   .contentAnalysis {
     line-height: 2;
