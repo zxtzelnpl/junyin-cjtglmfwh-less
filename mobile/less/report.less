@@ -47,13 +47,13 @@ html, body, form, .container {
 
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-around;
 
       position: absolute;
       left: 0;
       top: 0;
 
-      padding: 0 145*@one; // <=8个字
+      //padding: 0 145*@one; // <=8个字
       width: 690*@one - @tap*2;
       height: 90*@one - @tap*2;
       box-sizing: border-box;
@@ -63,12 +63,18 @@ html, body, form, .container {
 
       background: #fff;
       z-index: 3;
-      &.middle{
+/*      &.middle{
         padding: 0 145*@one; // >8个字
       }
       &.long{
         padding: 0 30*@one; // 字太多了
-      }
+        >span{
+          max-width:500*@one;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }*/
       span.slash {
         width: 48*@one;
         height: 48*@one;
@@ -77,6 +83,10 @@ html, body, form, .container {
       }
       span:nth-child(2) {
         font-weight: bold;
+        max-width:450*@one;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
     .shadow1 {
