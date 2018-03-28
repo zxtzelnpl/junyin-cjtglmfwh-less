@@ -67,7 +67,8 @@
           display:block;
           width:18px;
           height:1px;
-
+          overflow: hidden;
+          white-space: nowrap;
           background:@red;
           &.before{
             left:-24px;
@@ -103,7 +104,9 @@
         line-height:1.5rem;
         .fontSmall;
         text-align: center;
+        overflow: hidden;
         white-space:nowrap;
+        text-overflow: ellipsis;
       }
     }
   }
