@@ -20,13 +20,11 @@
     border-bottom: 1px solid @lineGray;
     background: #fff url(/mobile/img/icon_register_phone.png) 24*@one 24*@one no-repeat;
     background-size: 48*@one 48*@one;
-    input {
-      flex-grow: 1;
-    }
   }
   input {
     display: block;
     height: 64*@one;
+    max-width:350*@one;
     line-height: 64*@one;
     .fontNormal;
   }
@@ -37,10 +35,11 @@
     .get-code {
       display: block;
       margin-right: 24 *@one;
-      width: 180*@one;
-      height: 64*@one;
+      min-width: 180*@one;
+      min-height: 64*@one;
       line-height: 64*@one;
       border-radius: @radius;
+      flex-shrink: 0;
 
       .fontSmall;
       color: #fff;
@@ -59,11 +58,12 @@
   justify-content: center;
   align-items: center;
 
-  height: 36*@one;
+  min-height: 36*@one;
 
   .fontSmall;
   label {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     line-height:1.8;
@@ -108,13 +108,5 @@
   background: @componentGray;
   &.active {
     background: @red;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .service-agreement {
-    label {
-      flex-wrap:wrap
-    }
   }
 }

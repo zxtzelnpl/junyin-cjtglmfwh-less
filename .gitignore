@@ -10,4 +10,5 @@ gen
 node_modules
 mobile/libs
 mobile/css
+mobile/cssmin
 mobile.rar

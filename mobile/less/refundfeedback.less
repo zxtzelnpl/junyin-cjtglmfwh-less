@@ -42,13 +42,14 @@
   }
   .box{
     display:flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: flex-start;
     line-height:2;
   }
   .label{
     flex-shrink: 0;
-    width:151*@one;
+    min-width:151*@one;
     white-space:nowrap;
     @media screen and (max-width:320px){
       width:78px;

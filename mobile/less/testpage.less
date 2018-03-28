@@ -15,7 +15,7 @@
   display:flex;
   align-items: center;
   justify-content: center;
-  height:90*@one;
+  min-height:90*@one;
   background:#fff;
 }
 h4.title{
@@ -23,13 +23,14 @@ h4.title{
 
   margin:0 auto;
   width:106px;
-  height:45px;
+  min-height:45px;
   line-height:45px;
   text-align: center;
   .fontBig;
   .line{
     position:absolute;
-    top:22px;
+    top:50%;
+    transform: translateY(-50%);
 
     display:block;
     width:18px;
@@ -45,7 +46,8 @@ h4.title{
   }
   .circle{
     position:absolute;
-    top:20px;
+    top:50%;
+    transform: translateY(-50%);
 
     display:block;
     width:5px;
@@ -202,5 +204,7 @@ h4.title{
 }
 .btn {
   .button();
+  height:auto !important;
+  min-height: 90*@one;
   background: @red;
 }
