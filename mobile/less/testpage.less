@@ -1,7 +1,7 @@
 @import "consts/index.less";
 
 .test-page {
-
+  .fontSmall;
 }
 
 .content {
@@ -21,12 +21,13 @@
 h4.title{
   position:relative;
 
+  display:table;
   margin:0 auto;
-  width:106px;
+  min-width:106px;
   min-height:45px;
   line-height:45px;
   text-align: center;
-  .fontBig;
+  font-size:1.5em;
   .line{
     position:absolute;
     top:50%;
@@ -70,26 +71,31 @@ h4.title{
   }
   .title{
     display:flex;
+    align-items: flex-start;
+    line-height:150%;
     .mark{
-      width:60px;
+      box-sizing: border-box;
+      min-width:60px;
       flex-shrink: 0;
+      text-align: right;
       span:first-child{
-        padding-left:14px;
         color:@red;
         font-weight:bold;
       }
       span:last-child{
+        padding-right:5px;
         color:@fontGray;
-        .fontSmall;
       }
     }
     .mark+p{
       padding-right:10px;
       text-align: justify;
-      .fontNormal;
+      font-size:1.2em;
     }
   }
   .select{
+    @width:1.5em;
+    @height:1.5em;
     padding: 15px 10px 10px 60px;
     border-bottom:1px solid @lineGray;
     label {
@@ -109,8 +115,8 @@ h4.title{
         flex-shrink: 0;
         margin-right: 10px;
         box-sizing: border-box;
-        width: 18px;
-        height: 18px;
+        width: @width;
+        height: @height;
         border: 1px solid @red;
         border-radius: @radius;
       }
@@ -119,7 +125,6 @@ h4.title{
         background-size: 100% 100%;
       }
       .word{
-        .fontSmall;
         line-height: 18px;
       }
 
@@ -128,8 +133,8 @@ h4.title{
         flex-shrink: 0;
         margin-right: 10px;
         box-sizing: border-box;
-        width: 18px;
-        height: 18px;
+        width: @width;
+        height: @height;
         border: 1px solid @red;
         border-radius: @radius;
       }
@@ -138,15 +143,14 @@ h4.title{
         background-size: 100% 100%;
       }
       .word{
-        .fontSmall;
-        line-height: 18px;
+        line-height: @height;
       }
     }
   }
   @media screen and (min-width:376px){
     .select{
-      @width:20px;
-      @height:20px;
+      @width:1.5em;
+      @height:1.5em;
       padding: 15px 10px 10px 60px;
       border-bottom:1px solid @lineGray;
       label {
@@ -176,7 +180,6 @@ h4.title{
           background-size: 100% 100%;
         }
         .word{
-          .fontSmall;
           line-height: @height;
         }
 
@@ -195,7 +198,6 @@ h4.title{
           background-size: 100% 100%;
         }
         .word{
-          .fontSmall;
           line-height: @height;
         }
       }
