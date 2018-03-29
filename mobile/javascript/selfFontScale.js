@@ -43,8 +43,9 @@
           var __fontSize = parseInt(fontSize),
             fontSize = __fontSize + me.settings.step;
           return fontSize
-
         })
+
+        me.__callback()
 
       },
 
@@ -61,6 +62,15 @@
             fontSize = __fontSize - me.settings.step;
           return fontSize
         })
+
+        me.__callback()
+
+      },
+
+      __callback:function(){
+        if(typeof this.settings.callback === 'function'){
+          this.settings.callback(this.settings.current)
+        }
       }
     }
 
@@ -90,8 +100,4 @@
     current: 0
   }
 })(jQuery)
-
-$(function(){
-  $("body").SelfFontScale()
-})
 

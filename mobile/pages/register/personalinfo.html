@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="/mobile/libs/normalize-css/normalize.css">
     <link rel="stylesheet" href="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.css">
     <link rel="stylesheet" href="/mobile/css/personalinfo.css">
+    <link rel="stylesheet" href="/mobile/css/iosStopFontScale.css">
+    <link rel="stylesheet" href="/mobile/css/fontScale.css">
     <script src="/mobile/javascript/compatibility.js"></script>
 </head>
 <body>
 <form>
-    <div class="container personal-info">
+    <div class="container personal-info canScale">
 
         <div class="blank-h-10"></div>
 
@@ -50,8 +52,7 @@
             <div class="blank-h-10"></div>
             <div class="box">
                 <label for="naturePerson" class="label preStar">
-                    <p>实际控制投资</p>
-                    <p>者的自然人：</p>
+                    <p>实际控制投资者的自然人：</p>
                 </label>
                 <input class="ipt" id="naturePerson" type="text" placeholder="请填写"/>
             </div>
@@ -184,6 +185,22 @@
 </body>
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script src="/mobile/javascript/androidStopFontScale.js"></script>
+<script src="/mobile/javascript/selfFontScale.js"></script>
+<script>
+  $(function(){
+    $("body").SelfFontScale({
+      callback:function(a){
+        if(a!==0){
+          $(".info").addClass('change')
+        }
+        else{
+          $(".info").removeClass('change')
+        }
+      }
+    })
+  })
+</script>
 <script>
     /**自定义的提示框**/
     function toast(message) {
@@ -332,9 +349,6 @@
             /**do something**/
 
         });
-
-
-
 
     })
 
