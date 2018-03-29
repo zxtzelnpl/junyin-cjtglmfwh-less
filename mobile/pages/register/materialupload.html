@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="/mobile/libs/normalize-css/normalize.css">
     <link rel="stylesheet" href="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.css">
     <link rel="stylesheet" href="/mobile/css/materialupload.css">
+    <link rel="stylesheet" href="/mobile/css/iosStopFontScale.css">
+    <link rel="stylesheet" href="/mobile/css/fontScale.css">
     <script src="/mobile/javascript/weixin-1.2.0.js"></script>
 </head>
 <body>
 <form>
     <div class="container material-upload">
-        <div class="prompt">
+        <div class="prompt canScale">
             <h4>用户上传身份证正反面照片</h4>
             <div>
                 <p>1、证件的全部信息必须清晰无阻挡</p>
@@ -22,7 +24,7 @@
             </div>
         </div>
         <div class="blank-h-20"></div>
-        <div class="card">
+        <div class="card canScale">
             <div class="front">
                 <h5 class="title">
                     <span class="line before"></span>
@@ -59,6 +61,8 @@
 </body>
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script src="/mobile/javascript/androidStopFontScale.js"></script>
+<script src="/mobile/javascript/selfFontScale.js"></script>
 <script>
     /**按钮底色变成红色**/
     function buttonChangeToRed(){
