@@ -22,10 +22,13 @@
         window.innerWidth:<span id="visualW" class="red"></span>
         <hr>
         window.innerHeight :<span id="visualH" class="red"></span>
+        <hr>
+        <button>按钮</button>
     </div>
 </body>
 <script src="../libs/jquery/dist/jquery.min.js"></script>
 <script src="../libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script src="/mobile/javascript/inLoading.js"></script>
 <script>
     $('#userangent').html(navigator.userAgent)
     $('#screenWidth').html(window.screen.width)
@@ -37,6 +40,8 @@
     $('#visualW').html(window.innerWidth)
     $('#visualH').html(window.innerHeight)
 
+
+    $("body").InLoading()
 
 </script>
 </html>

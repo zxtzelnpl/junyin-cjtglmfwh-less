@@ -21,6 +21,15 @@
 @buttonW: 480;
 @buttonH: 90;
 
+@keyframes roundCircle {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
 .fontSmall {
   font-size: 12px;
   @media screen and (min-width: 376px) {
@@ -111,6 +120,28 @@ a.btn {
 .container {
   width: 100%;
   .fontSmall;
+}
+
+.inLoading{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index: 10;
+
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+  width:100vw;
+  height:100vh;
+  background:rgba(2,2,2,.6);
+  .inLoadingImg{
+    width:64px;
+    height:64px;
+    background:url("/mobile/img/loading.png") no-repeat;
+    background-size:64px 64px;
+    animation: roundCircle infinite 1s linear;
+  }
 }
 
 input, select, textarea {
