@@ -169,6 +169,9 @@
 .prompt{
   position:relative;
   padding:14px;
+
+  .fontSmall;
+
   background:#fff;
   &:before {
     position: absolute;
@@ -181,7 +184,6 @@
     border-bottom-color: #fff;
   }
   p{
-    .fontSmall;
     text-align: justify;
     line-height:1.2;
   }
@@ -207,15 +209,13 @@
   padding:0 20px;
   background:#fff;
   line-height:1.5;
+  .fontSmall;
   h4{
     padding:10px 0;
     line-height:2;
     text-align: center;
-    .fontNormal;
+    font-size:1.2em;
     color:@red;
-  }
-  p{
-    .fontSmall;
   }
   h4+p{
     padding:10px 0;
@@ -223,7 +223,6 @@
   }
   h4+p+h5{
     padding-top:20px;
-    font-size:@fontSmall;
   }
   h5~p{
     margin:20px 0;
@@ -231,6 +230,7 @@
   }
   h5.i-read{
     padding-bottom:20px;
+    font-size:inherit;
   }
   .sign{
     display:flex;
@@ -252,7 +252,7 @@
     text-align: center;
     color:@red;
     p{
-      .fontNormal;
+      font-size:1.2em;
       font-weight:bold;
     }
     span{
@@ -272,7 +272,6 @@
   h5{
     margin:20px 0;
     line-height:1.5;
-    .fontSmall;
   }
   .text>p {
     margin: 20px 0;

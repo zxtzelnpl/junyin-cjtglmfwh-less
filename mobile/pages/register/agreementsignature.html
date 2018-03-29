@@ -7,6 +7,8 @@
           content="width=device-width, initial-scale=1, maximum-scale=2, minimum-scale=1"/>
     <link rel="stylesheet" href="/mobile/libs/normalize-css/normalize.css">
     <link rel="stylesheet" href="/mobile/css/agreementsignature.css">
+    <link rel="stylesheet" href="/mobile/css/iosStopFontScale.css">
+    <link rel="stylesheet" href="/mobile/css/fontScale.css">
 </head>
 <body>
 <form>
@@ -45,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="prompt">
+                <div class="prompt canScale">
                     <p>本公司在此郑重提醒，您选择的本公司为您提供的产品及服务为针对股票类投资咨询顾问服务，其服务内容的投资品种涉及的风险等级为R3中级与您的风险承受能力等级相匹配。</p>
                     <p>本公司就上述适当性评估意见与您进行确认，并建议您审慎考察该产品或服务的特征及风险，进行充分风险评估，自行做出投资决定。</p>
                     <div class="sign">
@@ -59,7 +61,7 @@
             </div>
             <div class="content">
                 <div class="blank-h-10"></div>
-                <div class="risk-disclosure">
+                <div class="risk-disclosure canScale">
                     <h4>深圳君银证券投资咨询顾问有限公司<br/>投资顾问业务风险揭示书</h4>
                     <p>特别提示：投资者应签署本风险揭示书，表明投资者已经理解并愿意自行承担、接受证券投资顾问服务的风险和损失。</p>
                     <h5>尊敬的投资者：</h5>
@@ -141,7 +143,7 @@
             </div>
             <div class="content on">
                 <div class="blank-h-10"></div>
-                <div class="agreement">
+                <div class="agreement canScale">
                     <div class="head">
                         <p>深圳君银证券投资咨询顾问有限公司</p>
                         <p>投资顾问协议书</p>
@@ -305,6 +307,8 @@
 </form>
 </body>
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
+<script src="/mobile/javascript/androidStopFontScale.js"></script>
+<script src="/mobile/javascript/selfFontScale.js"></script>
 <script>
   $(function () {
     $('#tabs').click(function (e) {
