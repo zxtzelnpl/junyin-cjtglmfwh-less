@@ -16,12 +16,12 @@ h4.title{
   display:table;
   margin:0 auto;
   min-width:220*@one;
-  height:90*@one;
+  min-height:90*@one;
 
   line-height:90*@one;
   text-align: center;
   white-space:nowrap;
-  .fontNormal;
+  font-size:1.2em;
   .line{
     position:absolute;
     top:50%;
@@ -62,7 +62,7 @@ h4.title{
 .steps{
   box-sizing: border-box;
   padding-bottom:30*@one;
-  height:400*@one;
+  min-height:400*@one;
   background:#fff;
 
   p{
@@ -72,8 +72,8 @@ h4.title{
 
     margin:0 54*@one;
 
-    height:56*@one;
-    line-height:56*@one;
+    min-height:56*@one;
+    line-height:2;
 
     .circle{
       margin-right:8px;
@@ -124,7 +124,6 @@ h4.title{
       font-weight:bold;
     }
     .down{
-      font-size:@fontSmall;
       color:@fontGray;
     }
   }
