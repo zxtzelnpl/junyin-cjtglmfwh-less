@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="/mobile/libs/normalize-css/normalize.css">
     <link rel="stylesheet" href="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.css">
     <link rel="stylesheet" href="/mobile/css/videoupload.css">
+    <link rel="stylesheet" href="/mobile/css/iosStopFontScale.css">
+    <link rel="stylesheet" href="/mobile/css/fontScale.css">
 </head>
 <body>
 <form>
     <div class="container material-upload">
-        <div class="prompt">
+        <div class="prompt canScale">
             <h4>视频录音文字</h4>
             <p>本人<span>田雨橙</span>，身份证号码：<span>311111111111111111</span>，在<span class="red">君银投顾</span>对其投资顾问已作充分说明及风险揭示后，清楚投资顾问服务大的定位，对协议上的所有条款均确认无误并自愿签订协议。
             </p>
@@ -35,6 +37,8 @@
 </body>
 <script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script src="/mobile/javascript/androidStopFontScale.js"></script>
+<script src="/mobile/javascript/selfFontScale.js"></script>
 <script>
   function toast(message){
       $.toast({
