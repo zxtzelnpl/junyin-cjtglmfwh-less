@@ -1,0 +1,71 @@
+@import "consts/index.less";
+.material-upload{
+
+}
+
+/*需要阅读的文字*/
+.prompt{
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding:30*@one 20*@one 40*@one;
+  line-height:1.75;
+  h4{
+    margin-bottom: 5px;
+    color:@red;
+  }
+  p{
+    font-weight:bold;
+    text-align: justify;
+    word-break:break-all;
+    .red{
+      color:@red;
+    }
+  }
+}
+
+/*视频*/
+.videoBox{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+  padding:20*@one;
+  box-sizing: border-box;
+  background:#fff;
+
+  video{
+    display:block;
+    width:100%;
+    height:640*@one;
+  }
+}
+
+/*按钮*/
+.videoBtnBox{
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+  .btnRecordControl{
+
+  }
+  .btnSubmit{
+
+  }
+}
+.btn{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width:240*@one;
+  height:80*@one;
+  border-radius: @radius;
+  background:@componentGray;
+  .fontNormal;
+  color: #fff;
+  &.active{
+    background:@red;
+  }
+}

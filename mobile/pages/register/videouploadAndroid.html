@@ -7,7 +7,7 @@
           content="width=device-width, initial-scale=1, maximum-scale=2, minimum-scale=1"/>
     <link rel="stylesheet" href="/mobile/libs/normalize-css/normalize.css">
     <link rel="stylesheet" href="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.css">
-    <link rel="stylesheet" href="/mobile/css/videoupload.css">
+    <link rel="stylesheet" href="/mobile/css/videouploadAndroid.css">
     <link rel="stylesheet" href="/mobile/css/iosStopFontScale.css">
     <link rel="stylesheet" href="/mobile/css/fontScale.css">
 </head>
@@ -16,31 +16,20 @@
     <div class="container material-upload">
         <div class="prompt canScale">
             <h4>视频录音文字</h4>
-            <p>本人<span>田雨橙</span>，身份证号码：<span>311111111111111111</span>，在<span class="red">君银投顾</span>对其投资顾问已作充分说明及风险揭示后，清楚投资顾问服务大的定位，对协议上的所有条款均确认无误并自愿签订协议。
+            <p>本人<span>田雨橙</span>，身份证号：<span>311111111111111111</span>，对适当性评估结果已知悉，自愿并亲自签署相关风险揭示书及投顾协议等文件。
             </p>
         </div>
 
-        <div class="video">
-            <div class="show-video" id="videoShow" style="display:block;">
-                <!--<video id="myVideo" controls src="/test/video1.mp4">不支持</video>-->
-                <video id="myVideo" controls src="http://zy.jyzqsz.com/upload/video/20180330/1689FD7BC19F514C.flv">
-                </video>
-            </div>
-            <label class="upload-video">
-                <input id="videoFile" type="file" accept="video/*">
-                <img src="/mobile/img/icon_sc_video.png" alt="">
-                <span>视频</span>
-            </label>
+        <div class="videoBox">
+            <video controls autoplay></video>
         </div>
 
         <div class="blank-h-30"></div>
 
-        <video id="showVideo" style="width:320px;height:180px;border:1px solid black;"></video>
-        <canvas id="canvas" style="width:320px;height:180px;border:1px solid green;"></canvas>
-        <div id="error" style="width:100px;height:30px;border:1px solid red;">
-
+        <div class="videoBtnBox">
+            <div class="btnBeginRecord btn active" id="btnBeginRecord">开始录制</div>
+            <div class="btnStopRecord btn" id="btnStopRecord">停止录制</div>
         </div>
-        <div class="btn" id="btn">提交</div>
     </div>
 </form>
 </body>
@@ -48,6 +37,9 @@
 <script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
 <script src="/mobile/javascript/androidStopFontScale.js"></script>
 <script src="/mobile/javascript/selfFontScale.js"></script>
+<script src="/mobile/javascript/inLoading.js"></script>
+<script src="/mobile/javascript/RecordRTC.js"></script>
+<script src="/mobile/javascript/adapter-latest.js"></script>
 <script>
   function toast(message) {
     $.toast({
@@ -62,28 +54,138 @@
     })
   }
 
-
   $(function () {
-    var errorBox = document.getElementById("error");
-    var video = document.getElementById("showVideo");
-    var canvas = document.getElementById("canvas");
-    var videoObj = { audio: true,video:  { width: 1280, height: 720 } };
+    var video = document.querySelector('video')
+      , recorder
+      , options = {
+      recorderType: MediaStreamRecorder,
+      mimeType: 'video/webm;codecs=vp8'
+    }
+      , btnBeginRecord = document.getElementById('btnBeginRecord')
+      , btnStopRecord = document.getElementById('btnStopRecord')
+      , InLoading = null
+      , STATE = 0
+      , state_records = ["准备录制", "录制中", "数据上传中", "数据上传完毕"] //3
 
-    function errBack(error){
-      errorBox.innerHTML = error.message;
+    function captureCamera(callback) {
+      navigator.mediaDevices.getUserMedia({audio: true, video: true}).then(function (camera) {
+        callback(camera);
+      }).catch(function (error) {
+        alert('Unable to capture your camera. Please check console logs.');
+        alert(error.message)
+      });
     }
 
-    function getStream(stream){
-      video.srcObject = stream;
-      video.onloadedmetadata = function(e) {
-        video.play();
+    function stopRecordingCallback() {
+      var blob = recorder.getBlob();
+      recorder.camera.stop();
+
+
+      setTimeout(function () {
+        STATE++;
+        $("body").data("InLoading").hide()
+
+        ableBtn(btnBeginRecord)
+        btnBeginRecord.innerHTML = "重新录制"
+
+        ableBtn(btnStopRecord)
+        btnStopRecord.innerHTML = "提交"
+
+        recorder.destroy();
+        recorder = null;
+      }, 2000)
+
+      // 正式的代码
+      /*var fileType = 'video'; // or "audio"
+      var fileName = 'ABCDEF.webm';  // or "wav"
+      var formData = new FormData();
+      formData.append(fileType + '-filename', fileName);
+      formData.append(fileType + '-blob', blob);
+      xhr('/RecordRTC/PostRecordedAudioVideo', formData, function (fName) {
+        STATE++;
+        $("body").data("InLoading").hide()
+
+        ableBtn(btnBeginRecord)
+        btnBeginRecord.innerHTML = "重新录制"
+
+        ableBtn(btnStopRecord)
+        btnStopRecord.innerHTML = "提交"
+
+        recorder.destroy();
+        recorder = null;
+      });*/
+      // 正式的代码
+
+    }
+
+    btnBeginRecord.onclick = function () {
+      if (STATE === 0 || STATE === 3) {
+        captureCamera(function (camera) {
+          btnBeginRecord.innerHTML = "录制中"
+          btnStopRecord.innerHTML = "停止录制"
+          disableBtn(btnBeginRecord)
+
+          setSrcObject(camera, video);
+          video.play();
+          recorder = RecordRTC(camera, options);
+          recorder.startRecording();
+          // release camera on stopRecording
+          recorder.camera = camera;
+
+          ableBtn(btnStopRecord);
+        });
+
+        STATE = 1;
+      }
+      else {
+        return toast(state_records[STATE]);
+      }
+    };
+
+    btnStopRecord.onclick = function () {
+      if (STATE === 1) {
+        STATE++
+        disableBtn(btnStopRecord);
+        if (InLoading) {
+          InLoading.show();
+        }
+        else {
+          InLoading = $("body").InLoading().data("InLoading")
+        }
+
+        recorder.stopRecording(stopRecordingCallback);
+      }
+      else if (STATE === 3) {
+        return toast("跳向下一页")
+      }
+      else {
+        return toast(state_records[STATE]);
+      }
+    }
+
+    function disableBtn(btn) {
+      var __className = btn.className.split(" ")
+        , className = __className.filter(function (value) {
+        return value !== 'active'
+      })
+      btn.className = className.join(" ")
+
+    }
+
+    function ableBtn(btn) {
+      var className = btn.className
+      btn.className = className + " active"
+    }
+
+    function xhr(url, data, callback) {
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+          callback(location.href + request.responseText);
+        }
       };
-    }
-
-    if (navigator.getUserMedia) { // Standard
-      navigator.getUserMedia(videoObj,
-        getStream
-        , errBack);
+      request.open('POST', url);
+      request.send(data);
     }
   })
 </script>
