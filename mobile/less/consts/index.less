@@ -128,13 +128,16 @@ a.btn {
   left:0;
   z-index: 10;
 
-  display:flex;
+  display:none;
   align-items: center;
   justify-content: center;
 
   width:100vw;
   height:100vh;
   background:rgba(2,2,2,.6);
+  &.on{
+    display:flex;
+  }
   .inLoadingImg{
     width:64px;
     height:64px;

@@ -24,6 +24,10 @@
         window.innerHeight :<span id="visualH" class="red"></span>
         <hr>
         <button>按钮</button>
+
+        <video src="http://zy.jyzqsz.com/upload/video/20180330/1689FD7BC19F514C.flv"></video>
+
+        <input type="file" id="file" name="file">
     </div>
 </body>
 <script src="../libs/jquery/dist/jquery.min.js"></script>
@@ -41,7 +45,12 @@
     $('#visualH').html(window.innerHeight)
 
 
-    $("body").InLoading()
+    var inLoading = $("body").InLoading();
+    console.log($("body").data("InLoading"))
+    //
+    $("#file").change(function(e){
+      console.log(e.target.files[0])
+    })
 
 </script>
 </html>

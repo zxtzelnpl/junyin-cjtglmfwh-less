@@ -11,7 +11,7 @@
 
     InLoading.prototype = {
       init:function(){
-        this.loadingDom = $("<div class='inLoading'><div class='inLoadingImg'></div></div>");
+        this.loadingDom = $("<div class='inLoading on'><div class='inLoadingImg'></div></div>");
         this.$element.append(this.loadingDom);
       },
 
