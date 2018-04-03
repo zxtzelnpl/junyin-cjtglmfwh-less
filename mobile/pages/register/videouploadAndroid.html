@@ -59,22 +59,24 @@
     if (r != null) return unescape(r[2]); return null;
   }
 
+  /*如果不支持getUserMedia接口则跳到兼容页面*/
   if(!navigator.getUserMedia){
     toast("此处需要跳转到IOS页面");
     window.location = 'videoupload?Traid=' + GetQueryString("Traid");
   }
+  /*字体放大缩小*/
   $("body").SelfFontScale()
   $(function () {
     var video = document.querySelector('video')
       , recorder
       , options = {
-      recorderType: MediaStreamRecorder,
-      mimeType: 'video/webm;codecs=vp8'
-    }
+          recorderType: MediaStreamRecorder,
+          mimeType: 'video/webm;codecs=vp8'
+        }
       , btnBeginRecord = document.getElementById('btnBeginRecord')
       , btnStopRecord = document.getElementById('btnStopRecord')
       , InLoading = null
-      , STATE = 0
+      , STATE = 0 // 控制状态变量
       , state_records = ["准备录制", "录制中", "数据上传中", "数据上传完毕"] //3
 
     function captureCamera(callback) {
