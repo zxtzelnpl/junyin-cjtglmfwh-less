@@ -60,7 +60,8 @@
   }
 
   /*如果不支持getUserMedia接口则跳到兼容页面*/
-  if(!navigator.getUserMedia){
+  var IOSReg = /iPhone/gi
+  if(!navigator.getUserMedia&&IOSReg.exec(navigator.userAgent)){
     toast("此处需要跳转到IOS页面");
     window.location = 'videoupload?Traid=' + GetQueryString("Traid");
   }
@@ -203,7 +204,6 @@
           break;
       }
     }
-
   })
 </script>
 </html>
