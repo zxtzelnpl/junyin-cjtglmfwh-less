@@ -53,7 +53,17 @@
       loader: false
     })
   }
+  function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+  }
 
+  if(!navigator.getUserMedia){
+    toast("此处需要跳转到IOS页面");
+    window.location = 'videoupload?Traid=' + GetQueryString("Traid");
+  }
+  $("body").SelfFontScale()
   $(function () {
     var video = document.querySelector('video')
       , recorder
@@ -82,14 +92,7 @@
 
 
       setTimeout(function () {
-        STATE++;
-        $("body").data("InLoading").hide()
-
-        ableBtn(btnBeginRecord)
-        btnBeginRecord.innerHTML = "重新录制"
-
-        ableBtn(btnStopRecord)
-        btnStopRecord.innerHTML = "提交"
+        changeRecordState()
 
         recorder.destroy();
         recorder = null;
@@ -102,15 +105,7 @@
       formData.append(fileType + '-filename', fileName);
       formData.append(fileType + '-blob', blob);
       xhr('/RecordRTC/PostRecordedAudioVideo', formData, function (fName) {
-        STATE++;
-        $("body").data("InLoading").hide()
-
-        ableBtn(btnBeginRecord)
-        btnBeginRecord.innerHTML = "重新录制"
-
-        ableBtn(btnStopRecord)
-        btnStopRecord.innerHTML = "提交"
-
+        changeRecordState()
         recorder.destroy();
         recorder = null;
       });*/
@@ -121,10 +116,6 @@
     btnBeginRecord.onclick = function () {
       if (STATE === 0 || STATE === 3) {
         captureCamera(function (camera) {
-          btnBeginRecord.innerHTML = "录制中"
-          btnStopRecord.innerHTML = "停止录制"
-          disableBtn(btnBeginRecord)
-
           setSrcObject(camera, video);
           video.play();
           recorder = RecordRTC(camera, options);
@@ -132,10 +123,8 @@
           // release camera on stopRecording
           recorder.camera = camera;
 
-          ableBtn(btnStopRecord);
         });
-
-        STATE = 1;
+        changeRecordState()
       }
       else {
         return toast(state_records[STATE]);
@@ -144,15 +133,7 @@
 
     btnStopRecord.onclick = function () {
       if (STATE === 1) {
-        STATE++
-        disableBtn(btnStopRecord);
-        if (InLoading) {
-          InLoading.show();
-        }
-        else {
-          InLoading = $("body").InLoading().data("InLoading")
-        }
-
+        changeRecordState()
         recorder.stopRecording(stopRecordingCallback);
       }
       else if (STATE === 3) {
@@ -187,6 +168,39 @@
       request.open('POST', url);
       request.send(data);
     }
+
+    /*状态管理*/
+    function changeRecordState(){
+      switch (STATE){
+        case 0:
+        case 3:
+          btnBeginRecord.innerHTML = "录制中"
+          btnStopRecord.innerHTML = "停止录制"
+          disableBtn(btnBeginRecord)
+          ableBtn(btnStopRecord);
+          STATE = 1;
+          break;
+        case 1:
+          disableBtn(btnStopRecord);
+          if (InLoading) {
+            InLoading.show();
+          }
+          else {
+            InLoading = $("body").InLoading().data("InLoading")
+          }
+          STATE = 2;
+          break;
+        case 2:
+          InLoading.hide()
+          ableBtn(btnBeginRecord)
+          btnBeginRecord.innerHTML = "重新录制"
+          ableBtn(btnStopRecord)
+          btnStopRecord.innerHTML = "提交"
+          STATE = 3;
+          break;
+      }
+    }
+
   })
 </script>
 </html>
