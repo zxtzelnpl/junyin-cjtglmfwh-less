@@ -21,7 +21,8 @@
         </div>
 
         <div class="videoBox">
-            <video controls autoplay></video>
+            <video id="videoPre" controls autoplay></video>
+            <video style="display:none;" id="videoShow" controls></video>
         </div>
 
         <div class="blank-h-30"></div>
@@ -58,17 +59,20 @@
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
   }
-
   /*如果不支持getUserMedia接口则跳到兼容页面*/
-  var IOSReg = /iPhone/gi
-  if(!navigator.getUserMedia&&IOSReg.exec(navigator.userAgent)){
-    toast("此处需要跳转到IOS页面");
-    window.location = 'videoupload?Traid=' + GetQueryString("Traid");
+  function checkIfWeCanUseThisPage(){
+    var IOSReg = /iPhone/gi
+    if(!navigator.getUserMedia&&IOSReg.exec(navigator.userAgent)){
+      toast("此处需要跳转到IOS页面");
+      window.location = 'videoupload?Traid=' + GetQueryString("Traid");
+    }
   }
+  checkIfWeCanUseThisPage();
   /*字体放大缩小*/
-  $("body").SelfFontScale()
+  $("body").SelfFontScale();
   $(function () {
-    var video = document.querySelector('video')
+    var video = document.querySelector('#videoPre')
+      , videoShow = document.querySelector('#videoShow')
       , recorder
       , options = {
           recorderType: MediaStreamRecorder,
@@ -78,7 +82,7 @@
       , btnStopRecord = document.getElementById('btnStopRecord')
       , InLoading = null
       , STATE = 0 // 控制状态变量
-      , state_records = ["准备录制", "录制中", "数据上传中", "数据上传完毕"] //3
+      , state_records = ["准备录制", "录制中", "本地数据整理中", "本地数据整理完毕","数据上传中","数据上传完毕"] //5
 
     function captureCamera(callback) {
       navigator.mediaDevices.getUserMedia({audio: true, video: true}).then(function (camera) {
@@ -88,31 +92,18 @@
         alert(error.message)
       });
     }
-
     function stopRecordingCallback() {
       var blob = recorder.getBlob();
       recorder.camera.stop();
-
-      /*联调的时候这段注释，换下面的代码*/
-      setTimeout(function () {
-        changeRecordState()
-
+      video.src = video.srcObject = null;
+      recorder.getDataURL(function(dataURI) {
+        alert(dataURI);
+        STATE = 3;
+        changeRecordState();
+        videoShow.src = dataURI;
         recorder.destroy();
         recorder = null;
-      }, 2000)
-
-      // 正式的代码
-      /*var fileType = 'video'; // 这边是文件的格式
-      var fileName = 'ABCDEF.webm';  // 这边是文件的名字
-      var formData = new FormData();
-      formData.append(fileType + '-filename', fileName);
-      formData.append(fileType + '-blob', blob);
-      xhr('/RecordRTC/PostRecordedAudioVideo', formData, function (fName) {
-        changeRecordState()
-        recorder.destroy();
-        recorder = null;
-      });*/
-      // 正式的代码
+      });
     }
 
     btnBeginRecord.onclick = function () {
@@ -124,9 +115,9 @@
           recorder.startRecording();
           // release camera on stopRecording
           recorder.camera = camera;
-
         });
-        changeRecordState()
+        STATE = 1;
+        changeRecordState();
       }
       else {
         return toast(state_records[STATE]);
@@ -135,14 +126,72 @@
 
     btnStopRecord.onclick = function () {
       if (STATE === 1) {
-        changeRecordState()
+        STATE = 2;
+        changeRecordState();
         recorder.stopRecording(stopRecordingCallback);
       }
       else if (STATE === 3) {
-        return toast("跳向下一页")
+        STATE = 4;
+        changeRecordState();
+
+        /*联调的时候这段注释，换下面的代码*/
+        setTimeout(function () {
+          STATE = 5;
+          changeRecordState();
+          return toast("跳向下一页");
+        }, 2000);
+        // 正式的代码
+        /*var fileType = 'video'; // 这边是文件的格式
+        var fileName = 'ABCDEF.webm';  // 这边是文件的名字
+        var formData = new FormData();
+        formData.append(fileType + '-filename', fileName);
+        formData.append(fileType + '-blob', blob);
+        xhr('/RecordRTC/PostRecordedAudioVideo', formData, function (fName) {
+          changeRecordState()
+          recorder.destroy();
+          recorder = null;
+        });*/
+        // 正式的代码
       }
       else {
         return toast(state_records[STATE]);
+      }
+    }
+
+    /*状态管理*/
+    function changeRecordState(){
+      switch (STATE){
+        case 0://最开始的状态
+          break;
+        case 1://开始录制
+          hide(videoShow);
+          show(video);
+          btnBeginRecord.innerHTML = "录制中"
+          btnStopRecord.innerHTML = "停止录制"
+          disableBtn(btnBeginRecord)
+          ableBtn(btnStopRecord);
+          break;
+        case 2://生成本地视频
+          showLoading();
+          hide(video);
+          show(videoShow);
+          disableBtn(btnStopRecord);
+          break;
+        case 3://本地视频生成完毕
+          hideLoading();
+          ableBtn(btnBeginRecord);
+          btnBeginRecord.innerHTML = "重新录制"
+          ableBtn(btnStopRecord);
+          btnStopRecord.innerHTML = "提交"
+          break;
+        case 4://上传视频
+          showLoading();
+          videoShow.pause();
+          disableBtn(btnBeginRecord);
+          disableBtn(btnStopRecord);
+          break;
+        case 5://上传结束
+          break;
       }
     }
 
@@ -173,35 +222,31 @@
       request.send(data);
     }
 
-    /*状态管理*/
-    function changeRecordState(){
-      switch (STATE){
-        case 0:
-        case 3:
-          btnBeginRecord.innerHTML = "录制中"
-          btnStopRecord.innerHTML = "停止录制"
-          disableBtn(btnBeginRecord)
-          ableBtn(btnStopRecord);
-          STATE = 1;
-          break;
-        case 1:
-          disableBtn(btnStopRecord);
-          if (InLoading) {
-            InLoading.show();
-          }
-          else {
-            InLoading = $("body").InLoading().data("InLoading")
-          }
-          STATE = 2;
-          break;
-        case 2:
-          InLoading.hide()
-          ableBtn(btnBeginRecord)
-          btnBeginRecord.innerHTML = "重新录制"
-          ableBtn(btnStopRecord)
-          btnStopRecord.innerHTML = "提交"
-          STATE = 3;
-          break;
+    /*显示video*/
+    function show(v) {
+      v.style="display:block;"
+    }
+
+    /*隐藏video*/
+    function hide(v){
+      v.pause();
+      v.style="display:none;"
+    }
+
+    /*显示加载*/
+    function showLoading(){
+      if (InLoading) {
+        InLoading.show();
+      }
+      else {
+        InLoading = $("body").InLoading().data("InLoading")
+      }
+    }
+
+    /*隐藏加载*/
+    function hideLoading(){
+      if (InLoading) {
+        InLoading.hide();
       }
     }
   })
