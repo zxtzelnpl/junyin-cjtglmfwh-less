@@ -319,6 +319,53 @@
   }
 }
 
+.pop{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(33,33,33,.5);
+  z-index:1;
+
+  display:none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+
+  &.active{
+    display:flex;
+  }
+
+  .pop_text_wrap{
+    margin:20px 0;
+    padding:20px;
+
+    width:480 * @one;
+    border-radius: @radius;
+
+    text-align: center;
+    font-size:18px;
+    font-weight:bold;
+    line-height:2;
+    color:@red;
+
+    background:#fff;
+  }
+
+  .pop_btn{
+    border-radius: @radius;
+    width:450 * @one;
+    height:72 * @one;
+    line-height:72 * @one;
+    .fontNormal;
+    text-align: center;
+    color: #fff;
+    background:@red;
+  }
+}
 
 /**此处代码兼容小屏幕手机**/
 @media screen and (max-width: 320px){
