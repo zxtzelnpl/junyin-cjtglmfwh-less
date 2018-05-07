@@ -34,7 +34,7 @@
             </div>
             <div class="blank-h-10"></div>
             <div class="box">
-                <label for="phone" class="label preStar">
+                <label for="phone" class="label preStar" type="phone">
                     手机号：
                 </label>
                 <input class="ipt" id="phone" type="number" placeholder="请填写"/>
@@ -221,6 +221,7 @@
   $(function () {
     var inputs = $('.ipt'),
       /**checkbox*/
+      checkboxes = $('.ckb'),
       nobadrecords = $('#nobadrecords'),            //我没有其他不良记录
       ihavebadrecord = $('#ihavebadrecord'),        //选择框-->我有其他不良记录
       other_bad_record = $('#other_bad_record'),    //输入框-->其他不良记录
@@ -240,13 +241,13 @@
 
     /**检查-无不良信用记录**/
     function hasNoBadRecord() {
-      if(nobadrecords[0].checked){
+      if (nobadrecords[0].checked) {
         return nobadrecords[0].checked
       }
-      else{
+      else {
         var check = false
-        otherCheckBoxes.each(function(index,box){
-          if(box.checked){
+        otherCheckBoxes.each(function (index, box) {
+          if (box.checked) {
             check = true
           }
         })
@@ -282,7 +283,10 @@
       }
     }
 
-    activeCheck()
+    activeCheck();
+    if (result.android) {
+      $('#phone').attr('type', 'number');
+    }
 
     /**点击触发检查-所有用户信息**/
     inputs.keyup(activeCheck)
@@ -291,7 +295,7 @@
     /**点击触发检查-本人同意选择框**/
     iswear.click(activeCheck)
     /**点击触发检查-其余不良记录**/
-    otherCheckBoxes.click(activeCheck)
+    checkboxes.click(activeCheck)
 
     /**有其他不良信用记录**/
     ihavebadrecord.change(function () {
@@ -309,16 +313,15 @@
     /**无不良信用记录**/
     nobadrecords.change(function () {
       if (this.checked) {
-        otherCheckBoxes.map(function (index, input) {
-          input.checked = false;
-          input.setAttribute('checked', false)
+        checkboxes.map(function (index, checkbox) {
+          checkbox.checked = false;
         });
         other_bad_record.attr('disabled', 'disabled')
       }
     });
 
-    otherCheckBoxes.change(function(){
-      if(this.checked){
+    checkboxes.change(function () {
+      if (this.checked) {
         nobadrecords[0].checked = false;
       }
     })

@@ -1,6 +1,6 @@
 'use strict';
 
-(function compatibility () {
+window.result = (function compatibility () {
   var str = navigator.userAgent
       , reg = {
         android: /Android ([0-9.]*)/gi,
@@ -23,7 +23,8 @@
     style = document.createElement('link')
     style.setAttribute('rel','stylesheet')
     style.setAttribute('href','/mobile/css/android.css')
-    document.head.appendChild(style)
-    return true
+    document.head.appendChild(style);
   }
+
+  return result;
 })()
