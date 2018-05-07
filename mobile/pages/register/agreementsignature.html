@@ -6,6 +6,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=2, minimum-scale=1"/>
     <link rel="stylesheet" href="/mobile/libs/normalize-css/normalize.css">
+    <link rel="stylesheet" href="/mobile/libs/animate.css/animate.min.css">
     <link rel="stylesheet" href="/mobile/css/agreementsignature.css">
     <link rel="stylesheet" href="/mobile/css/iosStopFontScale.css">
     <link rel="stylesheet" href="/mobile/css/fontScale.css">
@@ -380,13 +381,19 @@
           return "《"+text+"》"
         })
         $('#pop_text').html(texts.join('和'));
-        $('#pop').addClass('active');
+        $('#pop').addClass('active fadeIn animated');
       }
     })
 
     $('#pop_btn').click(function(){
-      $('#pop').removeClass('active');
+      $('#pop').removeClass('fadeIn').addClass('fadeOut');
       youShouldCheck = []
+    })
+
+    $('#pop').on('animationend',function(){
+      if($('#pop').hasClass('fadeOut')){
+        $('#pop').removeClass('active')
+      }
     })
 
     $("body").SelfFontScale()
