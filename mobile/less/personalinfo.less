@@ -175,6 +175,61 @@
   }
 }
 
+.i-swear{
+  box-sizing: border-box;
+  padding-top: 20px;
+  padding-left: 12px;
+  padding-right:27px;
+  padding-bottom: 20px;
+
+  background: #fff;
+
+  .title {
+    font-weight: bold;
+  }
+  .box {
+
+  }
+  label {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    line-height: 1.5;
+    input {
+      visibility: hidden;
+      width: 0;
+      height: 0;
+    }
+    input[type="checkbox"] + .checkbox {
+      flex-shrink: 0;
+
+      display: block;
+      margin-right: 10px;
+      box-sizing: border-box;
+      width: 1.5em;
+      height: 1.5em;
+      border: 1px solid @red;
+      border-radius: @radius;
+    }
+    input[type="checkbox"]:disabled + .checkbox {
+      border-color:@lineGray;
+    }
+    input[type="checkbox"]:checked + .checkbox {
+      background: @red url(/mobile/img/icon_right_s.png) center center no-repeat;
+      background-size: 100% 100%;
+    }
+
+    &.oneline{
+      //height: 18px;
+
+      .text {
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
 .btn {
   .button();
 
