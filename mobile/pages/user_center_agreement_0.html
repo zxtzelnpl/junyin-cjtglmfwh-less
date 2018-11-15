@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的合同</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="/mobile/libs/normalize-css/normalize.css">
+    <link rel="stylesheet" href="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.css">
+    <link rel="stylesheet" href="/mobile/css/userCenter.css">
+</head>
+<body>
+<form>
+    <div class="container userCenterAgreement0">
+        <ul class="agreementsList0" id="agreementsList0">
+            <li>
+                <div class="agreement">
+                    <p>短线宝签约合同短线宝签约合同短线宝签约合同短线宝签约合同短线宝签约合同</p>
+                </div>
+
+                <div class="control">
+                    <p class="renew">续费</p>
+                    <p class="upgrade">升级</p>
+                </div>
+            </li>
+            <li>
+                <div class="agreement">
+                    <p>短线宝签约合同</p>
+                </div>
+
+                <div class="control">
+                    <p class="renew">续费</p>
+                    <p class="upgrade">升级</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</form>
+</body>
+<script src="/mobile/libs/jquery/dist/jquery.min.js"></script>
+<script src="/mobile/libs/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<script>
+    $('.control p').on('touchstart',function(e){
+      console.log(e.target.className)
+      if(e.target.className === 'renew'||e.target.className === 'upgrade'){
+        e.target.style='font-weight:bold;transform:scale(1.1)'
+      }
+    })
+
+    $('.control p').on('touchend',function(e){
+      if(e.target.className === 'renew'||e.target.className === 'upgrade'){
+        e.target.style=''
+      }
+    })
+</script>
+</html>
